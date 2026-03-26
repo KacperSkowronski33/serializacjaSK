@@ -1,4 +1,5 @@
 #include "serialDeserial.h"
+#include <iostream>
 
 std::vector<std::byte> serialDeserial::serializePID(const PID& pid)
 {
@@ -64,9 +65,79 @@ std::vector<std::byte> serialDeserial::serializeARX(const ARX& arx)
 	return bufor;
 }
 
+void serialDeserial::sprawdzTypRamki(std::vector<std::byte> &dane)
+{
+	if (dane.empty()) return;
+	std::byte* ptr = dane.data();
+	char typRamki;
+	ptr = pobierzZBufora(ptr, typRamki);
+	
+	switch (typRamki)
+	{
+	case 0x01:
+		this->deserializedPID(ptr);
+		break;
+	case 0x02:
+		this->deserialiedARX(ptr);
+		break;
+	default:
+		break;
+	};
+}
+
+void serialDeserial::deserializedPID(std::byte* ptr)
+{
+	double k, ti, td;
+	ptr = pobierzZBufora(ptr, k);
+	ptr = pobierzZBufora(ptr, ti);
+	ptr = pobierzZBufora(ptr, td);
+	m_deserialPID.setK(k);
+	m_deserialPID.setTI(ti);
+	m_deserialPID.setTD(td);
+}
+
+void serialDeserial::deserialiedARX(std::byte* ptr)
+{
+	int k;
+	ptr = pobierzZBufora(ptr, k);
+	
+	double uMin, uMax, yMin, yMax, szum;
+	double tabParametrow[5];
+	ptr = pobierzZBufora(ptr, tabParametrow);
+	uMin = tabParametrow[0]; uMax = tabParametrow[1]; yMin = tabParametrow[2]; yMax = tabParametrow[3]; szum = tabParametrow[4];
+	
+	char czySzum, czyLimity;
+	ptr = pobierzZBufora(ptr, czySzum);
+	ptr = pobierzZBufora(ptr, czyLimity);
+	
+	size_t countA, countB;
+	ptr = pobierzZBufora(ptr, countA);
+	std::vector<double> wspA(countA);
+	std::memcpy(wspA.data(), ptr, countA * sizeof(double));
+	ptr += countA * sizeof(double);
+
+	ptr = pobierzZBufora(ptr, countB);
+	std::vector<double> wspB(countB);
+	std::memcpy(wspB.data(), ptr, countB * sizeof(double));
+
+	m_deserialARX.ustawParametry(wspA, wspB, k);
+	m_deserialARX.ustawLimitWejscia(uMin, uMax);
+	m_deserialARX.ustawLimitWyjscia(yMin, yMax);
+	m_deserialARX.ustawAmplitudeSzumu(szum);
+	m_deserialARX.przelaczSzum(static_cast<bool>(czySzum));
+	m_deserialARX.przelaczLimity(static_cast<bool>(czyLimity));
+}
+
 template<typename T>
 std::byte* serialDeserial::dodajDoBufora(std::byte* ptr, const T& wart)
 {
 	std::memcpy(ptr, &wart, sizeof(T));
+	return ptr + sizeof(T);
+}
+
+template<typename T>
+std::byte* serialDeserial::pobierzZBufora(std::byte* ptr, T& dest)
+{
+	std::memcpy(&dest, ptr, sizeof(T));
 	return ptr + sizeof(T);
 }
