@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="serialDeserial.cpp" />
     <ClCompile Include="serializacjaARXPID.cpp" />
     <ClCompile Include="s_arx.cpp" />
     <ClCompile Include="s_pid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="serialDeserial.h" />
     <ClInclude Include="s_arx.h" />
     <ClInclude Include="s_pid.h" />
   </ItemGroup>
