@@ -3,7 +3,7 @@
 #include <numeric>
 #include <cassert>
 
-ARX::ARX(vector<double> _a, vector<double> _b, int _k) : a(_a), b(_b), k(_k), generator(std::random_device{}()), stanLimitow(true),
+ARX::ARX(std::vector<double> _a, std::vector<double> _b, int _k) : a(_a), b(_b), k(_k), generator(std::random_device{}()), stanLimitow(true),
 stanSzumu(false), distribution{ 0.0, 0.01 }, uMin(-10.0), uMax(10.0), yMin(-10.0), yMax(10.0)
 {
     assert(a.size() >= 3 && "Wektor a musi miec co najmniej 3 elementy");
@@ -67,7 +67,7 @@ double ARX::zastosujLimity(double min, double max, double wartosc)
     return wartosc;
 }
 
-void ARX::ustawParametry(vector<double> newA, vector<double> newB, int newK)
+void ARX::ustawParametry(std::vector<double> newA, std::vector<double> newB, int newK)
 {
     a = newA;
     yHist.resize(a.size(), 0.0);
@@ -79,13 +79,13 @@ void ARX::ustawParametry(vector<double> newA, vector<double> newB, int newK)
     kBuffer.resize(k, 0.0);
 }
 
-void ARX::ustawA(vector<double> newA)
+void ARX::ustawA(std::vector<double> newA)
 {
     a = newA;
     yHist.resize(a.size(), 0.0);
 }
 
-void ARX::ustawB(vector<double> newB)
+void ARX::ustawB(std::vector<double> newB)
 {
     b = newB;
     uHist.resize(b.size(), 0.0);

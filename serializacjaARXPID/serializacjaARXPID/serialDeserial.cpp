@@ -1,6 +1,10 @@
 #include "serialDeserial.h"
 #include <iostream>
 
+serialDeserial::serialDeserial() : m_deserialPID(0.0, 0.0, 0.0), m_deserialARX({ 0.0,0.0,0.0 }, {0.0,0.0,0.0})
+{
+}
+
 std::vector<std::byte> serialDeserial::serializePID(const PID& pid)
 {
 	const int liczbaParametrow = 3;

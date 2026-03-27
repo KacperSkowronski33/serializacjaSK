@@ -3,17 +3,17 @@
 #include <vector>
 #include <deque>
 #include <random>
-using namespace std;
+
 //
 class ARX
 {
 private:
-    vector<double> a;
-    vector<double> b;
+    std::vector<double> a;
+    std::vector<double> b;
     int k;
-    deque<double> yHist;
-    deque<double> uHist;
-    deque<double> kBuffer;
+    std::deque<double> yHist;
+    std::deque<double> uHist;
+    std::deque<double> kBuffer;
 
     double uMin, uMax;
     double yMin, yMax;
@@ -21,8 +21,8 @@ private:
 
     double amplitudaSzumu = 0.0;
     bool stanSzumu;
-    mt19937 generator;
-    normal_distribution<double> distribution;
+    std::mt19937 generator;
+    std::normal_distribution<double> distribution;
 
     double generujSzum();
 
@@ -33,9 +33,9 @@ public:
 
     double symuluj(double);
 
-    void ustawParametry(vector<double>, vector<double>, int);
-    void ustawA(vector<double>);
-    void ustawB(vector<double>);
+    void ustawParametry(std::vector<double>, std::vector<double>, int);
+    void ustawA(std::vector<double>);
+    void ustawB(std::vector<double>);
     void ustawOpoznienie(int);
     void ustawAmplitudeSzumu(double amp);
 

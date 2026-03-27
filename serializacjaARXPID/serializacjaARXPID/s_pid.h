@@ -38,5 +38,10 @@ public:
     double getD() const { return lastD; };
     // --- NOWE GETTERY DO ZAPISU ---
     trybCalki getTryb() const { return typCalkowania; }
+
+    //do debugowania tcp
+    double getNastawaK() const { return k; }
+    double getNastawaTI() const { return TI; }
+    double getNastawaTD() const { return TD; }
 };
 

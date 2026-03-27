@@ -1,13 +1,14 @@
 #pragma once
 #include "s_arx.h"
 #include "s_pid.h"
-#include <WinSock2.h>
 
 class serialDeserial
 {
 	PID m_deserialPID;
 	ARX m_deserialARX;
 public:
+	serialDeserial();
+
 	//serializacja
 	std::vector<std::byte> serializePID(const PID& pid);
 	std::vector<std::byte> serializeARX(const ARX& arx);
