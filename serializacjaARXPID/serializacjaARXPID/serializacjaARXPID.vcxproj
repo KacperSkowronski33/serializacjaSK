@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KlientTCP.cpp" />
     <ClCompile Include="serialDeserial.cpp" />
     <ClCompile Include="serializacjaARXPID.cpp" />
+    <ClCompile Include="SerwerTCP.cpp" />
     <ClCompile Include="s_arx.cpp" />
     <ClCompile Include="s_pid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KlientTCP.h" />
     <ClInclude Include="serialDeserial.h" />
+    <ClInclude Include="SerwerTCP.h" />
     <ClInclude Include="s_arx.h" />
     <ClInclude Include="s_pid.h" />
   </ItemGroup>

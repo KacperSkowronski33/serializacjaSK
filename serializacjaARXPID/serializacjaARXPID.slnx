@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="serializacjaARXPID/serializacjaARXPID.vcxproj" />
+  <Project Path="serializacjaARXPID/serializacjaARXPID.vcxproj" Id="d9304c13-fa5c-4ba5-bd34-eab906b7089b" />
 </Solution>
